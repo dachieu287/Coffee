@@ -1,0 +1,109 @@
+﻿@model PaginatedList<Coffee.Models.BookATable>
+@{
+    ViewData["Title"] = "BookATable";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Bàn đặt</h1>
+
+<form asp-controller="Admin" asp-action="BookATable" method="get">
+
+    <p>
+        Tìm theo:
+        <select name="typeSearch">
+            <option value="Name">Tên</option>
+            <option value="Phone">Số điện thoại</option>
+            <option value="Date">Ngày</option>
+        </select>
+
+        Tìm kiếm: <input type="text" name="searchString">
+        <input type="submit" value="Tìm kiếm" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].FirstName)
+            
+                @Html.DisplayNameFor(model => model[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Phone)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    <a asp-action="EditBookATable" asp-route-id="@item.Id">Sửa</a> |
+                    <a asp-action="DetailsBookATable" asp-route-id="@item.Id">Xem</a> |
+                    <a asp-action="DeleteBookATable" asp-route-id="@item.Id">Xoá</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+<a asp-action="BookATable"
+   asp-route-pageNumber="@(Model.PageIndex-1)"
+   asp-route-typeSearch="@ViewData["TypeSearch"]"
+   asp-route-currentString="@ViewData["CurrentString"]"
+   class="btn btn-dark @prevDisabled">
+    Trang trước
+</a>
+@{
+    for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        var thisDisabled = i == Model.PageIndex ? "disabled" : "";
+        <a asp-action="BookATable"
+           asp-route-pageNumber="@i"
+           asp-route-typeSearch="@ViewData["TypeSearch"]"
+           asp-route-currentString="@ViewData["CurrentString"]"
+           class="btn btn-dark @thisDisabled">
+            @i
+        </a>
+    }
+}
+<a asp-action="BookATable"
+   asp-route-pageNumber="@(Model.PageIndex+1)"
+   asp-route-typeSearch="@ViewData["TypeSearch"]"
+   asp-route-currentString="@ViewData["CurrentString"]"
+   class="btn btn-dark @nextDisabled">
+    Trang tiếp
+</a>

@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Coffee.Models.CartView>
+@{
+    ViewData["Title"] = "Giỏ hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int total = 0;
+}
+
+<section class="home-slider owl-carousel">
+
+    <div class="slider-item" style="background-image: url(/images/bg_3.jpg);" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row slider-text justify-content-center align-items-center">
+
+                <div class="col-md-7 col-sm-12 text-center ftco-animate">
+                    <h1 class="mb-3 mt-5 bread">Giỏ hàng</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a asp-action="Index" asp-controller="Home">Trang chủ</a></span> <span>Giỏ hàng</span></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="cartview" class="ftco-section ftco-cart" >
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ftco-animate">
+                <div class="cart-list">
+                    <table class="table">
+                        <thead class="thead-primary">
+                            <tr class="text-center">
+                                <th>&nbsp;</th>
+                                <th>&nbsp;</th>
+                                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                                <th>@Html.DisplayNameFor(model => model.Price)</th>
+                                <th>@Html.DisplayNameFor(model => model.Quantity)</th>
+                                <th>@Html.DisplayNameFor(model => model.Total)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var item in Model)
+                                {
+                                    <tr class="text-center">
+                                        <td class="product-remove"><a asp-action="RemoveItem" asp-route-id="@item.Id"><span class="icon-close"></span></a></td>
+
+                                        <td class="image-prod"><div class="img" style="background-image:url(/images/@item.Image);"></div></td>
+
+                                        <td class="product-name">
+                                            <h3>@item.Name</h3>
+                                            <p>@item.Note</p>
+                                        </td>
+
+                                        <td class="price"><span>@item.Price</span><span>K</span></td>
+
+                                        <td class="quantity">
+                                            <div class="input-group mb-3">
+                                                <input id="@item.Id" type="text" name="quantity" class="quantity form-control input-number" value="@item.Quantity" min="1" max="100" onchange="ChangeQuantity(id,value)">
+                                            </div>
+                                        </td>
+
+                                        <td class="total"><span>@item.Total</span><span>K</span></td>
+                                    </tr>
+                                    total += item.Price * item.Quantity;
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-end">
+            <div class="col col-lg-3 col-md-6 mt-5 cart-wrap ftco-animate">
+                <div class="cart-total mb-3">
+                    <h3>Hóa đơn</h3>
+
+                    <p class="d-flex total-price">
+                        <span>Tổng cộng</span>
+                        <span>@total K</span>
+                    </p>
+                </div>
+                <p class="text-center"><a asp-action="Index" asp-controller="Checkout" class="btn btn-primary py-3 px-4">Tiến hành thanh toán</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+

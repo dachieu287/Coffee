@@ -1,0 +1,131 @@
+﻿@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewData["Title"] - Coffee</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+    <link href="~/css/open-iconic-bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/animate.css" rel="stylesheet" />
+
+    <link href="~/css/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/css/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="~/css/magnific-popup.css" rel="stylesheet" />
+
+    <link href="~/css/aos.css" rel="stylesheet" />
+
+    <link href="~/css/ionicons.min.css" rel="stylesheet" />
+
+    <link href="~/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="~/css/jquery.timepicker.css" rel="stylesheet" />
+
+    <link href="~/css/flaticon.css" rel="stylesheet" />
+    <link href="~/css/icomoon.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" asp-action="Index" asp-controller="Home">Coffee<small>Blend</small></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active"><a asp-action="Index" asp-controller="Home" class="nav-link">Trang chủ</a></li>
+                    <li class="nav-item"><a asp-action="Index" asp-controller="Products" class="nav-link">Thực đơn</a></li>
+                    <li class="nav-item"><a asp-action="Index" asp-controller="Service" class="nav-link">Dịch vụ</a></li>
+
+                    <li class="nav-item"><a asp-action="Index" asp-controller="About" class="nav-link">Giới thiệu</a></li>
+                    <li class="nav-item"><a asp-action="Index" asp-controller="Shopping" class="nav-link">Đặt hàng online</a></li>
+                    <li class="nav-item"><a asp-action="Index" asp-controller="Contact" class="nav-link">Liên hệ</a></li>
+                    <li class="nav-item cart"><a asp-action="Index" asp-controller="Cart" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small id="cart">0</small></span></a></li>
+                    <li class="nav-item cart"><a asp-action="Index" asp-controller="Account" class="nav-link"><span class="icon icon-person"></span><span class=""><small>@Context.Session.GetString("Id")</small></span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    @RenderBody()
+
+    <footer class="ftco-footer ftco-section img">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Về chúng tôi</h2>
+                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                        <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                            <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                            <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                            <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-5 mb-md-5">
+
+                </div>
+                <div class="col-lg-2 col-md-6 mb-5 mb-md-5">
+                    <div class="ftco-footer-widget mb-4 ml-md-4">
+                        <h2 class="ftco-heading-2">Dịch vụ</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="py-2 d-block">Chế biến</a></li>
+                            <li><a href="#" class="py-2 d-block">Giao Hàng</a></li>
+                            <li><a href="#" class="py-2 d-block">Thức Phẩm Chất Lượng</a></li>
+                            <li><a href="#" class="py-2 d-block">Hỗn Hợp</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Thắc mắc?</h2>
+                        <div class="block-23 mb-3">
+                            <ul>
+                                <li><span class="icon icon-map-marker"></span><span class="text">123 Trái Đất - Hệ Mặt Trời</span></li>
+                                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+84 123 456 789</span></a></li>
+                                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">email@email.com</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+
+                    <p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;
+                        <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery.easing.1.3.js"></script>
+    <script src="~/js/jquery.waypoints.min.js"></script>
+    <script src="~/js/jquery.stellar.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/js/aos.js"></script>
+    <script src="~/js/jquery.animateNumber.min.js"></script>
+    <script src="~/js/bootstrap-datepicker.js"></script>
+    <script src="~/js/jquery.timepicker.min.js"></script>
+    <script src="~/js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="~/js/google-map.js"></script>>
+    <script src="~/js/main.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

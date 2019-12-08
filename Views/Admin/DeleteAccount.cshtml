@@ -1,0 +1,75 @@
+﻿@model Coffee.Models.Account
+@{
+    ViewData["Title"] = "DeleteAccount";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Xóa tài khoản</h1>
+
+<h3>Bạn có chắc chắn muốn xóa?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Privilege)
+        </dt>
+        <dd class="col-sm-10">
+            @{
+                if (Model.Privilege == 1)
+                {
+                    <span>Admin</span>
+                }
+                else if (Model.Privilege == 2)
+                {
+                    <span>User</span>
+                }
+            }
+        </dd>
+    </dl>
+    <form asp-action="DeleteAccount">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Xóa" class="btn btn-danger" /> |
+        <a asp-action="Account" class="btn btn-success">Trờ về</a>
+    </form>
+</div>
+

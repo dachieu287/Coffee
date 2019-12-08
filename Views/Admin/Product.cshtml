@@ -1,0 +1,103 @@
+﻿@model PaginatedList<Coffee.Models.Product>
+@{
+    ViewData["Title"] = "Product";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Xem sản phẩm</h1>
+
+<p>
+    <a asp-action="CreateProduct">Thêm sản phẩm</a>
+</p>
+
+<form asp-controller="Admin" asp-action="Product" method="get">
+
+    <p>
+        Thể loại:
+        <select name="searchGenre">
+            <option value="">Tất cả</option>
+            <option value="Coffee">Cà phê</option>
+            <option value="MilkTea">Trà sữa</option>
+            <option value="SinhTo">Sinh tố</option>
+            <option value="Soda">Soda</option>
+        </select>
+
+        Tên sản phẩm: <input type="text" name="searchString">
+        <input type="submit" value="Tìm kiếm" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Genre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Note)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td>
+                    <a asp-action="EditProduct" asp-route-id="@item.Id">Sửa</a> |
+                    <a asp-action="DetailsProduct" asp-route-id="@item.Id">Xem</a> |
+                    <a asp-action="DeleteProduct" asp-route-id="@item.Id">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+<a asp-action="Product"
+   asp-route-pageNumber="@(Model.PageIndex-1)"
+   asp-route-searchGenre="@ViewData["SearchGenre"]"
+   asp-route-currentString="@ViewData["CurrentString"]"
+   class="btn btn-dark @prevDisabled">
+    Trang trước
+</a>
+@{
+    for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        var thisDisabled = i == Model.PageIndex ? "disabled" : "";
+        <a asp-action="Product"
+           asp-route-pageNumber="@i"
+           asp-route-searchGenre="@ViewData["SearchGenre"]"
+           asp-route-currentString="@ViewData["CurrentString"]"
+           class="btn btn-dark @thisDisabled">
+            @i
+        </a>
+    }
+}
+<a asp-action="Product"
+   asp-route-pageNumber="@(Model.PageIndex+1)"
+   asp-route-searchGenre="@ViewData["SearchGenre"]"
+   asp-route-currentString="@ViewData["CurrentString"]"
+   class="btn btn-dark @nextDisabled">
+    Trang tiếp
+</a>

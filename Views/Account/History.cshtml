@@ -1,0 +1,100 @@
+﻿@model PaginatedList<Coffee.Models.Bill>
+@{
+    ViewData["Title"] = "Lịch sử mua hàng";
+    Layout = "~/Views/Shared/_ProfileLayout.cshtml";
+}
+
+<h1>Đơn hàng</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Id)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model[0].Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td>
+                    @{
+                        if (item.Status == 0)
+                        {
+                            <span>Chưa xử lí</span>
+                        }
+                        else if (item.Status == 1)
+                        {
+                            <span>Đang giao</span>
+                        }
+                        else if (item.Status == 2)
+                        {
+                            <span>Đã giao hàng</span>
+                        }
+                        else if (item.Status == 3)
+                        {
+                            <span>Đã hủy</span>
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-action="DetailsBill" asp-route-id="@item.Id" class="btn btn-info">Xem</a>
+                    @{
+                        if (item.Status == 0)
+                        {
+                            <a id="@item.Id" class="btn btn-danger" onclick="CancelBill(id)">Hủy</a>
+                        }
+
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+<a asp-action="History"
+   asp-route-pageNumber="@(Model.PageIndex-1)"
+   class="btn btn-dark @prevDisabled">
+    Trang trước
+</a>
+
+<a asp-action="History"
+   asp-route-pageNumber="@(Model.PageIndex+1)" 
+   class="btn btn-dark @nextDisabled">
+    Trang tiếp
+</a>
+
+
+<script>
+    function CancelBill(id) {
+        if (!confirm("Bạn có muốn hủy đơn hàng?"))
+            return;
+        location = "/Account/CancelBill/" + id;
+    }
+</script>

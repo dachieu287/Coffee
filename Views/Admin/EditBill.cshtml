@@ -1,0 +1,64 @@
+﻿@model  Coffee.Models.Bill
+@{
+    ViewData["Title"] = "EditBill";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Sản phẩm</h1>
+
+<h4>Chỉnh sửa</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditBill">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input asp-for="Id" type="hidden" class="form-control" />
+
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <select asp-for="Status" class="form-control">
+                    <option value="0">Chưa xử lí</option>
+                    <option value="1">Đang giao</option>
+                    <option value="2">Đã giao hàng</option>
+                    <option value="3">Đã hủy</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Name" class="control-label "></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Note" class="control-label"></label>
+                <input asp-for="Note" class="form-control" />
+                <span asp-validation-for="Note" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Thay đổi" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Bill">Trở về</a>
+</div>
+

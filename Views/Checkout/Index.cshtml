@@ -1,0 +1,153 @@
+﻿@model Coffee.Models.CheckoutView
+@{
+    ViewData["Title"] = "Thanh toán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int total = Model.Price + Model.Ship - Model.Discount;
+}
+
+<section class="home-slider owl-carousel">
+
+    <div class="slider-item" style="background-image: url(images/bg_3.jpg);" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row slider-text justify-content-center align-items-center">
+
+                <div class="col-md-7 col-sm-12 text-center ftco-animate">
+                    <h1 class="mb-3 mt-5 bread">Thanh toán</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a asp-action="Index" asp-controller="Home">Trang chủ</a></span> <span>Thanh toán</span></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<form asp-action="Checkout" class="billing-form ftco-bg-dark p-3 p-md-5" method="post">
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8 ftco-animate">
+
+                    <h3 class="mb-4 billing-heading">Thông tin hóa đơn</h3>
+                    <div class="row align-items-end">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Name"></label>
+                                <input asp-for="Name" class="form-control text-light">
+                            </div>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Address"></label>
+                                <input asp-for="Address" class="form-control">
+                            </div>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Phone"></label>
+                                <input asp-for="Phone" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Email"></label>
+                                <input asp-for="Email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Code"></label>
+                                <input asp-for="Code" class="form-control">
+                            </div>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Note"></label>
+                                <input asp-for="Note" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END -->
+
+
+
+                    <div class="row mt-5 pt-3 d-flex">
+                        <div class="col-md-6 d-flex">
+                            <div class="cart-detail cart-total ftco-bg-dark p-3 p-md-4">
+                                <h3 class="billing-heading mb-4">Hóa đơn</h3>
+                                <p class="d-flex">
+                                    <span>@Html.DisplayNameFor(model => model.Price)</span>
+                                    <span>@Model.Price K</span>
+                                </p>
+                                <p class="d-flex">
+                                    <span>@Html.DisplayNameFor(model => model.Ship)</span>
+                                    <span>@Model.Ship K</span>
+                                </p>
+                                <p class="d-flex">
+                                    <span>@Html.DisplayNameFor(model => model.Discount)</span>
+                                    <span>@Model.Discount K</span>
+                                </p>
+                                <hr>
+                                <p class="d-flex total-price">
+                                    <span>Tổng cộng</span>
+                                    <span>@total K</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="cart-detail ftco-bg-dark p-3 p-md-4">
+                                <h3 class="billing-heading mb-4">Phương thức thanh toán</h3>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="radio">
+                                            <label><input type="radio" asp-for="PaymentMethod" value="1" class="mr-2">Tiền mặt</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="radio">
+                                            <label><input type="radio" asp-for="PaymentMethod" value="2" class="mr-2">Chuyển khoản ngân hàng</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="radio">
+                                            <label><input type="radio" asp-for="PaymentMethod" value="3" class="mr-2">Ví điện tử</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p><input type="submit" value="Xác nhận thanh toán" class="btn btn-primary py-3 px-4"/></p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- .col-md-8 -->
+
+                <div class="col-xl-4 sidebar ftco-animate">
+                    <div class="sidebar-box ftco-animate">
+                        <div class="categories">
+
+                            <h3>Đơn hàng</h3>
+                            @{
+                                foreach (Item item in Model.Items)
+                                {
+                                    <li><a>@item.Name <span>@item.Quantity</span></a></li>
+                                }
+
+                            }
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+</form>
+     

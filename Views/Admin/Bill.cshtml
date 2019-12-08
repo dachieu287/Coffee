@@ -1,0 +1,140 @@
+﻿@model PaginatedList<Coffee.Models.Bill>
+@{
+    ViewData["Title"] = "Bill";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Quản lí hóa đơn</h1>
+
+<form asp-controller="Admin" asp-action="Bill" method="get">
+
+    <p>
+        Tìm kiếm theo:
+        <select name="typeSearch">
+            <option value="Id">Mã đơn hàng</option>
+            <option value="User">Tên tài khoản</option>
+            <option value="Phone">Số điện thoại</option>
+            <option value="Time">Thời gian</option>
+        </select>
+
+        Tìm kiếm: <input type="text" name="searchString">
+
+        Tình trạng:
+        <select name="status">
+            <option value="All">Tất cả</option>
+            <option value="ChuaXuLi">Chưa xử lí</option>
+            <option value="DaGiao">Đã giao</option>
+            <option value="DaHuy">Đã hủy</option>
+        </select>
+
+        <input type="submit" value="Tìm kiếm" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td>
+                    @{
+                        if (item.Status == 0)
+                        {
+                            <span>Chưa xử lí</span>
+                        }
+                        else if (item.Status == 1)
+                        {
+                            <span>Đang giao</span>
+                        }
+                        else if (item.Status == 2)
+                        {
+                            <span>Đã giao hàng</span>
+                        }
+                        else if (item.Status == 3)
+                        {
+                            <span>Đã hủy</span>
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-action="EditBill" asp-route-id="@item.Id">Sửa</a> |
+                    <a asp-action="DetailsBill" asp-route-id="@item.Id">Xem</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+<a asp-action="Bill"
+   asp-route-pageNumber="@(Model.PageIndex-1)"
+   asp-route-typeSearch="@ViewData["TypeSearch"]"
+   asp-route-currentString="@ViewData["CurrentString"]"
+   asp-route-status="@ViewData["Status"]"
+   class="btn btn-dark @prevDisabled">
+    Trang trước
+</a>
+@{
+    for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        var thisDisabled = i == Model.PageIndex ? "disabled" : "";
+        <a asp-action="Bill"
+           asp-route-pageNumber="@i"
+           asp-route-typeSearch="@ViewData["TypeSearch"]"
+           asp-route-currentString="@ViewData["CurrentString"]"
+           asp-route-status="@ViewData["Status"]"
+           class="btn btn-dark @thisDisabled">
+            @i
+        </a>
+    }
+}
+<a asp-action="Bill"
+   asp-route-pageNumber="@(Model.PageIndex+1)"
+   asp-route-typeSearch="@ViewData["TypeSearch"]"
+   asp-route-currentString="@ViewData["CurrentString"]"
+   asp-route-status="@ViewData["Status"]"
+   class="btn btn-dark @nextDisabled">
+    Trang tiếp
+</a>
+
